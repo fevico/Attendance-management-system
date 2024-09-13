@@ -1,10 +1,11 @@
+import Container from '@/component/auth/Container'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>
-      
-    </div>
+    <Container headMessage={''} subMessage={''}>
+      hey
+    </Container>
   )
 }
 

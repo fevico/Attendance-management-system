@@ -42,7 +42,7 @@ const AdminContainer = ({ children }) => {
                 </ul>
             </aside>
 
-            <main className='main'>
+            <main className='main bg-[#F0F6F7]'>
                 {children}
             </main>
 

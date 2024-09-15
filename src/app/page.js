@@ -5,9 +5,11 @@ import Logo from "@/component/reusable/Logo";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoCloseOutline } from "react-icons/io5";
 import Button from "@/component/reusable/Button";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [toggle, setToggle] = useState(false)
+  const router = useRouter()
 
   // Function to handle the toggle
   const handleToggle = () => {
@@ -29,14 +31,14 @@ export default function Home() {
           </button>
           {toggle && (
             <div className="md:flex gap-3 flex-col absolute bg-white w-1/3 right-0  top-[10%] items-center justify-between h-auto">
-              <Button icon={<LuArrowRightToLine color="#65A9B2" />} onClick={''} style={'border border-[#090B0E] font-[700] gap-1 mb-2 px-7 py-1 text-xl text-[#65A9B2]'} text={'Log In'} />
-              <Button icon={<LuArrowRightToLine />} onClick={''} style={'border border-[#546881] bg-[#65A9B2] font-[600] gap-1 px-6 py-1 text-xl text-white'} text={'Sign Up'} />
+              <Button icon={<LuArrowRightToLine />} onClick={()=>{router.push('/auth/signin')}} style={'border border-[#090B0E] font-[700] gap-1 mb-2 px-7 py-1 text-xl text-[#65A9B2] hover:text-white hover:bg-[#65A9B2] transition'} text={'Log In'} />
+              <Button icon={<LuArrowRightToLine />} onClick={()=>{router.push('/auth/signup')}}  style={'border border-[#546881] bg-[#65A9B2] font-[600] gap-1 px-6 py-1 text-xl text-white hover:text-[#65A9B2] hover:bg-white transition'} text={'Sign Up'} />
             </div>
           )}
 
           <div className="hidden md:flex gap-3">
-            <Button icon={<LuArrowRightToLine color="#65A9B2" />} onClick={''} style={'border border-[#090B0E] font-[700] gap-1 px-6 py-1 text-xl text-[#65A9B2]'} text={'Log In'} />
-            <Button icon={<LuArrowRightToLine />} onClick={''} style={'border border-[#546881] bg-[#65A9B2] font-[600] gap-1 px-6 py-1 text-xl text-white'} text={'Sign Up'} />
+            <Button icon={<LuArrowRightToLine />} onClick={()=>{router.push('/auth/signin')}} style={'border border-[#090B0E] font-[700] gap-1 px-6 py-1 text-xl text-[#65A9B2] hover:text-white hover:bg-[#65A9B2] transition'} text={'Log In'} />
+            <Button icon={<LuArrowRightToLine />} onClick={()=>{router.push('/auth/signup')}}  style={'border border-[#546881] bg-[#65A9B2] font-[600] gap-1 px-6 py-1 text-xl text-white hover:text-[#65A9B2] hover:bg-white transition'} text={'Sign Up'} />
           </div>
         </nav>
 
@@ -49,7 +51,7 @@ export default function Home() {
               Access your courses, manage attendance, and stay connected with your school community — all in one place.
             </p>
 
-            <Button icon={<LuArrowRightToLine />} onClick={''} style={'border border-[#546881] bg-[#65A9B2] font-[600] gap-1 px-6 py-1 text-xl text-white hidden lg:flex mt-12'} text={'Get Started'} />
+            <Button icon={<LuArrowRightToLine />} onClick={''} style={'border border-[#546881] bg-[#65A9B2] font-[600] gap-1 px-6 py-1 text-xl text-white hidden lg:flex mt-12 hover:text-[#65A9B2] hover:bg-white transition'} text={'Get Started'} />
           </div>
         </div>
       </main>

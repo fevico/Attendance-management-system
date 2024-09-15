@@ -5,28 +5,9 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: "Grenze", serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
 }
 
 /* Logo designing */
@@ -41,4 +22,50 @@ body {
 }
 .logo-lg{
   font-size: 33px;
+}
+footer {
+  background-color: #090B0E;
+  height: 200px;
+}
+input{
+  height: 50px;
+}
+
+aside{
+  /* fixed top-0 left-0 w-[20%] h-[100vh] bg-[#000]  */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20%;
+  height: 100vh;
+  background: #000;
+  padding-top: 30px;
+}
+.main{
+  margin-left: 20%;
+  padding: 20px;
+}
+
+.active{
+  /* color: green; */
+  width: 45%;
+  height: 2px;
+  float: right;
+  margin-right: 15%;
+  background-color: #65A9B2;
+  border-radius: 10px;
+}
+
+.not-active{
+  /* color: green; */
+  width: 45%;
+  height: 2px;
+  float: right;
+  margin-right: 15%;
+  background-color: #000;
+}
+
+.list{
+  margin-top: 35px;
+  font-size: 20px;
 }

@@ -6,6 +6,8 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { IoCloseOutline } from "react-icons/io5";
 import Button from "@/component/reusable/Button";
 import { useRouter } from "next/navigation";
+import landingPageImage from '../assets/image/welcome.png'
+import Image from "next/image";
 
 export default function Home() {
   const [toggle, setToggle] = useState(false)
@@ -43,7 +45,7 @@ export default function Home() {
         </nav>
 
         <div className="bg-[#233B3E] my-5 h-[500px] md:h-[400px] flex flex-col md:flex-row items-center justify-center md:items-start md:justify-start w-full mt-[18%] md:mt-[10%] lg:mt-[7%] rounded-md p-3 md:pt-9 text-white">
-          <div className="md:w-[80%] lg:pl-5">
+          <div className="md:w-[70%] lg:pl-5">
             <h1 className="text-center md:text-start text-[12px] md:text-[28px] font-light">
               Welcome to Stubborn Academy! Your Gateway to Seamless Learning and Management
             </h1>
@@ -53,6 +55,8 @@ export default function Home() {
 
             <Button icon={<LuArrowRightToLine />} onClick={''} style={'border border-[#546881] bg-[#65A9B2] font-[600] gap-1 px-6 py-1 text-xl text-white hidden lg:flex mt-12 hover:text-[#65A9B2] hover:bg-white transition'} text={'Get Started'} />
           </div>
+
+          <Image alt="" src={landingPageImage} className="w-[30%]"/>
         </div>
       </main>
 

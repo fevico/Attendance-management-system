@@ -30,7 +30,7 @@ const AdminContainer = ({ children }) => {
                             <Link key={i} className={`text-white`} href={link.href}>
                                 <div className='flex items-center gap-2 p-3 px-5 w-full'>
                                     {link.icon}
-                                    <p className='ml-3 text-2xl'>{link.text}</p>
+                                    <p className='ml-3 text-xl'>{link.text}</p>
                                 </div>
 
 

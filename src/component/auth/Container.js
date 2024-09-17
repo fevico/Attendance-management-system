@@ -10,9 +10,9 @@ const Container = ({ children, headMessage, subMessage }) => {
                 <div className='w-full lg:w-auto  p-3'>
                     <h1 className='font-[600]' style={{fontSize: "40px",}}>{headMessage}</h1>
                     <p className=' font-[400]' style={{fontSize: "20px",}}>{subMessage}</p>
-                    <form>
+                    <div>
                         {children}
-                    </form>
+                    </div>
                 </div>
 
                 <div className='hidden lg:flex py-10 w-full ml-[-50px]'>

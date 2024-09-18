@@ -53,7 +53,7 @@ export default function Home() {
               Access your courses, manage attendance, and stay connected with your school community — all in one place.
             </p>
 
-            <Button icon={<LuArrowRightToLine />} onClick={''} style={'border border-[#546881] bg-[#65A9B2] font-[600] gap-1 px-6 py-1 text-xl text-white hidden lg:flex mt-12 hover:text-[#65A9B2] hover:bg-white transition'} text={'Get Started'} />
+            <Button icon={<LuArrowRightToLine />} onClick={()=>{router.push('/auth/signup')}} style={'border border-[#546881] bg-[#65A9B2] font-[600] gap-1 px-6 py-1 text-xl text-white hidden lg:flex mt-12 hover:text-[#65A9B2] hover:bg-white transition'} text={'Get Started'} />
           </div>
 
           <Image alt="" src={landingPageImage} className="w-[30%]"/>

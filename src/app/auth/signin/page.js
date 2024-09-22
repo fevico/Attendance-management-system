@@ -11,6 +11,7 @@ import { toast } from 'react-toastify'
 
 const Page = () => {
   const [isLoading, setIsLoading] = useState(false);
+  // const [role, setRole] = useState('')
   const router = useRouter()
 
   const handleSubmit = async (e) => {
@@ -32,7 +33,7 @@ const Page = () => {
       setIsLoading(false);
 
       toast.success("Login successful!");
-      router.push("/admin/attendance-tracking");
+      router.push(response?.data?.role === 'lecturer' ? "/admin/attendance-tracking" : '/student');
       console.log(response?.data);
     } catch (err) {
       toast.error(err.response?.data || "Login failed");

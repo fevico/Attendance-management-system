@@ -5,13 +5,13 @@ import DefaultInput from '@/component/reusable/Input';
 import Button from '@/component/reusable/Button';
 import { LuArrowRightToLine } from 'react-icons/lu';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import axios from 'axios';
 import { toast } from "react-toastify";
 
 const Page = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [role, setRole] = useState(''); // Track selected role
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,15 +23,16 @@ const Page = () => {
       name: formData.get("name"),
       email: formData.get("email"),
       password: formData.get("password"),
+      role: role, // Add the selected role to the data object
     };
-    
+
     try {
       const response = await axios.post(
-        "https://attendance-management-server-g57k.onrender.com/auth/create", 
+        "https://attendance-management-server-g57k.onrender.com/auth/create",
         data
       );
       setIsLoading(false);
-    
+
       toast.success("Registration successful!");
       router.push("/auth/signin");
       console.log(response.data.message);
@@ -68,23 +69,28 @@ const Page = () => {
           name="password"
         />
 
+        {/* Role selection with mutual exclusivity */}
         <div className="w-full flex items-center my-1">
           <div className="flex items-center justify-center">
-            <DefaultInput
-              label=""
-              placeholder=""
-              style="mb-[-7px] mr-1"
+            <input
               type="checkbox"
+              name="role"
+              value="student"
+              checked={role === 'student'}
+              onChange={() => setRole('student')}
+              className="mr-1"
             />
             <span>Student</span>
           </div>
 
           <div className="flex items-center justify-center ml-3">
-            <DefaultInput
-              label=""
-              placeholder=""
-              style="mb-[-7px] mr-1"
+            <input
               type="checkbox"
+              name="role"
+              value="lecturer"
+              checked={role === 'lecturer'}
+              onChange={() => setRole('lecturer')}
+              className="mr-1"
             />
             <span>Lecturer</span>
           </div>

@@ -34,7 +34,9 @@ const Page = () => {
 
       toast.success("Login successful!");
       router.push(response?.data?.role === 'lecturer' ? "/admin/attendance-tracking" : '/student');
-      console.log(response?.data);
+      console.log(response?.data?.token);
+
+      localStorage.setItem('authToken', response?.data?.token)
     } catch (err) {
       toast.error(err.response?.data || "Login failed");
       console.error(err);

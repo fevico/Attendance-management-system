@@ -34,7 +34,7 @@ const Page = () => {
       setIsLoading(false);
 
       toast.success("Registration successful!");
-      router.push("/auth/signin");
+      router.push("/student/courseReg");
       console.log(response.data.message);
     } catch (err) {
       toast.error(err.response?.data?.message || "Registration failed");

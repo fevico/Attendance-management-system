@@ -1,5 +1,6 @@
 "use client";
 import { Scanner } from '@yudiel/react-qr-scanner';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify'
 
@@ -25,6 +26,8 @@ const Page = () => {
         />
       </div>
       <p className="mt-4 text-gray-500 text-sm">Align the QR code within the frame to scan</p>
+
+      <Link href={'/student/courseReg'}>Register course</Link>
     </div>
   );
 };

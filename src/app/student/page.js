@@ -11,7 +11,7 @@ const Page = () => {
     
     setTimeout(() => {
       router.push("/auth/signin");
-    }, 1000);
+    }, 500);
 
   }
 

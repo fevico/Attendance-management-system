@@ -7,7 +7,7 @@ const Page = () => {
       <h1 className="text-3xl font-bold text-blue-600 mb-8">QR Code Scanner</h1>
       <div className="w-full max-w-md p-4 bg-white shadow-lg rounded-lg">
         <Scanner
-          onScan={(result) => console.log(result)}
+          onScan={(result) => alert(result)}
           className="w-full rounded-lg"
         />
       </div>

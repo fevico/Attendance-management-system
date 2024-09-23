@@ -7,7 +7,7 @@ const Page = () => {
   const router = useRouter();
 
   const handleScan = (result) => {
-    toast.success(result || "Marked Present");
+    alert(result || "Marked Present");
     
     setTimeout(() => {
       router.push("/auth/signin");

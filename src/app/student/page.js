@@ -1,13 +1,23 @@
 "use client";
 import { Scanner } from '@yudiel/react-qr-scanner';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify'
 
 const Page = () => {
+  const router = useRouter();
+
+  const handleScan = (result) => {
+    toast.success(result || "Marked Present");
+    router.push("/auth/signin");
+
+  }
+
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-center bg-gray-100">
       <h1 className="text-3xl font-bold text-blue-600 mb-8">QR Code Scanner</h1>
       <div className="w-full max-w-md p-4 bg-white shadow-lg rounded-lg">
         <Scanner
-          onScan={(result) => alert(result)}
+          onScan={handleScan}
           className="w-full rounded-lg"
         />
       </div>

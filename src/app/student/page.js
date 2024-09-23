@@ -6,8 +6,8 @@ import { toast } from 'react-toastify'
 const Page = () => {
   const router = useRouter();
 
-  const handleScan = (result) => {
-    alert(result || "Marked Present");
+  const handleScan = () => {
+    alert("Marked Present");
     
     setTimeout(() => {
       router.push("/auth/signin");

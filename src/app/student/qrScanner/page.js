@@ -1,14 +1,26 @@
 "use client";
-import { Scanner } from '@yudiel/react-qr-scanner';
-import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import { Scanner } from "@yudiel/react-qr-scanner";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const QRScannerPage = () => {
+  const [isClient, setIsClient] = useState(false); // To check if it's running in the browser
   const router = useRouter();
   const searchParams = useSearchParams(); // Hook to get query parameters
+
+  useEffect(() => {
+    // Ensure the code runs only on the client side
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    // During SSR, we can show a fallback (or nothing if desired)
+    return null;
+  }
 
   // Get the courseId from the query parameter
   const courseId = searchParams.get("courseId");
@@ -16,16 +28,19 @@ const QRScannerPage = () => {
   // Handle the scan event
   const handleScan = async (data) => {
     if (data) {
-      // Assuming the data contains the courseId from the query parameter
       try {
-        const authToken = localStorage.getItem('authToken'); // Retrieve token from localStorage
+        const authToken = localStorage.getItem("authToken"); // Retrieve token from localStorage
         const apiUrl = `https://attendance-management-server-g57k.onrender.com/attendance/${courseId}`;
 
-        const response = await axios.post(apiUrl, {}, {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        });
+        const response = await axios.post(
+          apiUrl,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+            },
+          }
+        );
 
         if (response.status === 200) {
           toast.success("Attendance Marked Successfully!");
@@ -56,24 +71,20 @@ const QRScannerPage = () => {
 
       <div className="w-full max-w-md p-4 bg-white shadow-lg rounded-lg">
         {/* QR Scanner Component */}
-        <Scanner
-          onScan={handleScan}
-          onError={handleError}
-          className="w-full h-64 rounded-lg"
-        />
+        <Scanner onScan={handleScan} onError={handleError} className="w-full h-64 rounded-lg" />
       </div>
 
       <p className="mt-4 text-gray-500 text-sm">Align the QR code within the frame to scan</p>
 
       {/* Go Back to Home Page */}
-      <Link href={'/student'}>
+      <Link href={"/student"}>
         <button className="mt-6 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
           Go Back Home
         </button>
       </Link>
 
       {/* Toast notifications container */}
-      <toast.Container position="bottom-right" autoClose={3000} hideProgressBar={false} />
+      {/* <toast.Container position="bottom-right" autoClose={3000} hideProgressBar={false} /> */}
     </div>
   );
 };

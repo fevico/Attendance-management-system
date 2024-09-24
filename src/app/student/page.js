@@ -25,8 +25,10 @@ const CoursePage = () => {
           headers: { Authorization: `Bearer ${authToken}` },
         });
         setCourses(response.data); // Assuming response.data holds an array of courses
+        console.log(response.data.message);
       } catch (err) {
-        setError("Failed to fetch courses.");
+        const backendError = err.response?.data?.message;
+        setError(backendError);
         console.error("Error fetching courses:", err);
       } finally {
         setLoading(false);
@@ -40,44 +42,45 @@ const CoursePage = () => {
     return <p>Loading...</p>;
   }
 
-  if (error) {
-    return <p className="text-red-500">{error}</p>;
-  }
-
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold mb-4">Available Courses</h1>
-      <table className="min-w-full bg-white border border-gray-300">
-        <thead>
-          <tr className="bg-gray-200 text-left">
-            <th className="py-2 px-4 border-b">Course Name</th>
-            <th className="py-2 px-4 border-b">Course Code</th>
-            <th className="py-2 px-4 border-b">Credit</th>
-            <th className="py-2 px-4 border-b">Schedule</th>
-            <th className="py-2 px-4 border-b"></th> {/* QR Code Button */}
-          </tr>
-        </thead>
-        <tbody>
-          {courses.map((course) => (
-            <tr key={course._id}>
-              <td className="py-2 px-4 border-b">{course.name}</td>
-              <td className="py-2 px-4 border-b">{course.code}</td>
-              <td className="py-2 px-4 border-b">{course.credits}</td>
-              <td className="py-2 px-4 border-b">
-                {course.startTime} - {course.endTime}
-              </td>
-              <td className="py-2 px-4 border-b">
-                {/* Link to QR Scanner page with the courseId */}
-                <Link href={`/qrScanner?courseId=${course._id}`}>
-                  <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-                    Scan QR Code
-                  </button>
-                </Link>
-              </td>
+
+      {courses.length === 0 ? (
+        <p>{error}</p>
+      ) : (
+        <table className="min-w-full bg-white border border-gray-300">
+          <thead>
+            <tr className="bg-gray-200 text-left">
+              <th className="py-2 px-4 border-b">Course Name</th>
+              <th className="py-2 px-4 border-b">Course Code</th>
+              <th className="py-2 px-4 border-b">Credit</th>
+              <th className="py-2 px-4 border-b">Schedule</th>
+              <th className="py-2 px-4 border-b"></th> {/* QR Code Button */}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {courses.map((course) => (
+              <tr key={course._id}>
+                <td className="py-2 px-4 border-b">{course.name}</td>
+                <td className="py-2 px-4 border-b">{course.code}</td>
+                <td className="py-2 px-4 border-b">{course.credits}</td>
+                <td className="py-2 px-4 border-b">
+                  {course.startTime} - {course.endTime}
+                </td>
+                <td className="py-2 px-4 border-b">
+                  {/* Link to QR Scanner page with the courseId */}
+                  <Link href={`/qrScanner?courseId=${course._id}`}>
+                    <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                      Scan QR Code
+                    </button>
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

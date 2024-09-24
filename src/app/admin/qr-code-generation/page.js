@@ -19,6 +19,13 @@ const Page = () => {
   const apiUrl = 'https://attendance-management-server-g57k.onrender.com/course/create';
 
   const handleSubmit = async (e) => {
+    const authToken = localStorage.getItem("authToken");
+
+      if (!authToken) {
+        console.error("Authentication token missing. Please log in.");
+        // setLoading(false);
+        return;
+      }
     e.preventDefault(); // Prevent page reload
     setIsLoading(true);
 
@@ -33,7 +40,10 @@ const Page = () => {
     };
 
     try {
-      const response = await axios.post(apiUrl, data);
+      const response = await axios.post(apiUrl,
+         data,
+         {headers: { Authorization: `Bearer ${authToken}` },}
+        );
       setIsLoading(false);
 
       toast.success("Course Created Successfully");
@@ -72,8 +82,8 @@ const Page = () => {
             <DefaultInput label={'Course Name'} placeholder={'Calculus I'} style={'mb-4'} name='CourseName' type='' />
             <DefaultInput label={'Course Code'} placeholder={'MATH121'} style={'mb-4'} name='CourseCode' type='' />
             <DefaultInput label={'Number of Credit'} placeholder={'5'} style={'mb-4'} name='CourseCredit' type='number' />
-            <DefaultInput label={'Start Time'} placeholder={''} style={'mb-4'} name='StartDateTime' type='datetime-local' />
-            <DefaultInput label={'End Time'} placeholder={''} style={''} name='EndDateTime' type='datetime-local' />
+            <DefaultInput label={'Start Time'} placeholder={''} style={'mb-4'} name='StartDateTime' type='time' />
+            <DefaultInput label={'End Time'} placeholder={''} style={''} name='EndDateTime' type='time' />
 
             <Button
               icon={<BsQrCodeScan />}

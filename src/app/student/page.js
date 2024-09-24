@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Link from "next/link";
+import { BsQrCodeScan } from "react-icons/bs";
 
 const CoursePage = () => {
   const apiUrl = "https://attendance-management-server-g57k.onrender.com/course/student/courses";
@@ -49,38 +50,24 @@ const CoursePage = () => {
       {courses.length === 0 ? (
         <p>{error}</p>
       ) : (
-        <table className="min-w-full bg-white border border-gray-300">
-          <thead>
-            <tr className="bg-gray-200 text-left">
-              <th className="py-2 px-4 border-b">Course Name</th>
-              <th className="py-2 px-4 border-b">Course Code</th>
-              <th className="py-2 px-4 border-b">Credit</th>
-              <th className="py-2 px-4 border-b">Schedule</th>
-              <th className="py-2 px-4 border-b"></th> {/* QR Code Button */}
-            </tr>
-          </thead>
-          <tbody>
-            {courses.map((course) => (
-              <tr key={course._id}>
-                <td className="py-2 px-4 border-b">{course.name}</td>
-                <td className="py-2 px-4 border-b">{course.code}</td>
-                <td className="py-2 px-4 border-b">{course.credits}</td>
-                <td className="py-2 px-4 border-b">
-                  {course.startTime} - {course.endTime}
-                </td>
-                <td className="py-2 px-4 border-b">
-                  {/* Link to QR Scanner page with the courseId */}
-                  <Link href={`/qrScanner?courseId=${course._id}`}>
-                    <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-                      Scan QR Code
-                    </button>
-                  </Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <ul className="min-w-full bg-white border border-gray-300">
+          {courses.map((course) => (
+            <li key={course._id} className="w-[98%] p-2 flex justify-between items-center my-2 shadow rounded mx-auto">
+
+              <div>
+                <h1 className="text-xl mb-1">{course.name} ({course.code}) - ({course.credits})</h1>
+                <p>{course.startTime} - {course.endTime}</p>
+              </div>
+
+
+              <Link href={`/qrScanner?courseId=${course._id}`}>
+                <BsQrCodeScan size={35} color="#65A9B2" />
+              </Link>
+            </li>
+          ))}
+        </ul>
       )}
+
     </div>
   );
 };

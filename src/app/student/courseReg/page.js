@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import Button from '@/component/reusable/Button';
 
 const Page = () => {
     const apiUrl = 'https://attendance-management-server-g57k.onrender.com/course/student/course/registration';
@@ -19,7 +20,7 @@ const Page = () => {
     useEffect(() => {
         const authToken = localStorage.getItem('authToken');
         setToken(authToken);
-        console.log('Token:', authToken);
+        // console.log('Token:', authToken);
     }, []);
 
     // Fetch courses after the token is set
@@ -108,13 +109,13 @@ const Page = () => {
             ) : (
                 <p>No courses available</p>
             )}
-
-            <button
+            <Button
                 onClick={handleSubmit}
-                className="mt-4 bg-blue-500 text-white py-2 px-4 rounded"
-            >
-                Register Selected Courses
-            </button>
+                style="w-1/2 border border-[#546881] bg-[#65A9B2] font-[600] mt-[40px] gap-1 px-6 py-1 text-xl text-white hover:text-[#65A9B2] hover:bg-white transition rounded"
+                text="Register Selected Courses"
+            />
+
+
         </div>
     );
 };

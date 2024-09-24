@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -7,22 +7,9 @@ import { toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-const QRScannerPage = () => {
-  const [isClient, setIsClient] = useState(false); // To check if it's running in the browser
+const QRScannerContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams(); // Hook to get query parameters
-
-  useEffect(() => {
-    // Ensure the code runs only on the client side
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    // During SSR, we can show a fallback (or nothing if desired)
-    return null;
-  }
-
-  // Get the courseId from the query parameter
   const courseId = searchParams.get("courseId");
 
   // Handle the scan event
@@ -32,15 +19,11 @@ const QRScannerPage = () => {
         const authToken = localStorage.getItem("authToken"); // Retrieve token from localStorage
         const apiUrl = `https://attendance-management-server-g57k.onrender.com/attendance/${courseId}`;
 
-        const response = await axios.post(
-          apiUrl,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${authToken}`,
-            },
-          }
-        );
+        const response = await axios.post(apiUrl, {}, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        });
 
         if (response.status === 200) {
           toast.success("Attendance Marked Successfully!");
@@ -53,9 +36,7 @@ const QRScannerPage = () => {
       }
 
       // Redirect after successful scan or error
-      setTimeout(() => {
         router.push("/student"); // Redirect to the student page
-      }, 2000);
     }
   };
 
@@ -86,6 +67,22 @@ const QRScannerPage = () => {
       {/* Toast notifications container */}
       {/* <toast.Container position="bottom-right" autoClose={3000} hideProgressBar={false} /> */}
     </div>
+  );
+};
+
+const QRScannerPage = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null;
+
+  return (
+    <Suspense fallback={<div>Loading QR Scanner...</div>}>
+      <QRScannerContent />
+    </Suspense>
   );
 };
 

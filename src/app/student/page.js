@@ -10,7 +10,6 @@ const CoursePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch courses
   useEffect(() => {
     const fetchCourses = async () => {
       const authToken = localStorage.getItem("authToken");
@@ -25,7 +24,7 @@ const CoursePage = () => {
         const response = await axios.get(apiUrl, {
           headers: { Authorization: `Bearer ${authToken}` },
         });
-        setCourses(response.data); // Assuming response.data holds an array of courses
+        setCourses(response.data);
         console.log(response.data.message);
       } catch (err) {
         const backendError = err.response?.data?.message;
@@ -53,21 +52,18 @@ const CoursePage = () => {
         <ul className="min-w-full bg-white border border-gray-300">
           {courses.map((course) => (
             <li key={course._id} className="w-[98%] p-2 flex justify-between items-center my-2 shadow rounded mx-auto">
-
               <div>
                 <h1 className="text-xl mb-1">{course.name} ({course.code}) - ({course.credits})</h1>
                 <p>{course.startTime} - {course.endTime}</p>
               </div>
 
-
-              <Link href={`/qrScanner?courseId=${course._id}`}>
+              <Link href={`/student/qrScanner?courseId=${course._id}`}>
                 <BsQrCodeScan size={35} color="#65A9B2" />
               </Link>
             </li>
           ))}
         </ul>
       )}
-
     </div>
   );
 };

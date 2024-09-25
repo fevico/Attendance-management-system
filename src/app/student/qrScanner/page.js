@@ -50,7 +50,7 @@ const QRScannerContent = () => {
     // Handle scan error
     const handleError = (err) => {
         console.error(err);
-        toast.error("Error scanning QR Code. Please try again.");
+        toast.error("Error scanning QR Code. Please try again."); 
     };
 
     return (
